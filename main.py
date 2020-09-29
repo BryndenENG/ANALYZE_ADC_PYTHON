@@ -5,12 +5,13 @@
 ###############################################################################
 # IMPORT
 from Library.countValue import count
-import Library.returnMainDir as rd
-import Library.createDir     as cd
-import Library.moveData      as md
-import Library.importDATA    as iD
-import Library.organizeData  as od
-import Library.countValue    as cv
+import Library.returnMainDir  as rd
+import Library.createDir      as cd
+import Library.moveData       as md
+import Library.importDATA     as iD
+import Library.organizeData   as od
+import Library.countValue     as cv
+import Library.dataFrameTOcsv as tscv
 
 import pandas as pl
 ############################################################################### 
@@ -40,7 +41,8 @@ gain, offset = od.organizeDataFrame(dataGain, title0, dataOffset, title1)
 
 countGain, countOffset = cv.countValue(gain, offset)
 
-print(countGain)
+#print(countGain)
+#print('---')
+#print(countOffset)
 print('---')
-print(countOffset)
-
+tscv.convertCSV(countGain, 'gain', countOffset, 'offset', addressDir)

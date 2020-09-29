@@ -41,6 +41,7 @@ def count(df:list, dado:str):
 
 ###############################################################################
 def auxCount0(x, string:str):
-     filtro = (x.filter(like=string))
-     filtroCount = filtro.value_counts()
-     return filtroCount
+     
+     filtro = (x.filter(like=string)).value_counts().reset_index()
+     filtro.columns = [string, 'FREQUENCIA']
+     return filtro

@@ -15,7 +15,7 @@ def organizeDataFrame(dados0:list, nameColumn0:list,
 ###############################################################################
 
 def organizeData(dados:list,nameColumn:list)->list:
-     ''
+     'Returns a list of items with data type panda organized in 3 columns'
      dataFRAME = []
      for x in dados:
           a = 0
