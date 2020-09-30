@@ -5,6 +5,8 @@ import pandas as pl
 
 ###############################################################################
 def countValue(df1:list,df2:list):
+     'Performs the frequency of the received data def1 refers to the gain' 
+     'values def2 refers to the offset values'
      val1 = count(df1,'gain')
      val2 = count(df2, 'offset')
 
@@ -12,6 +14,8 @@ def countValue(df1:list,df2:list):
 
 ###############################################################################
 def count(df:list, dado:str):
+     'Performs the count and names the columns according to the value inserted'
+     'in the dados string'
      countValue = []
      for x in df:
           aux = []

@@ -53,14 +53,23 @@ def moveDataCSV(diretory: str):
      diretory2 = diretory + '\\DADOS\\DADOS_OFFSET'
      a = os.listdir(diretory1)
      b = os.listdir(diretory2)
+
+     # System Message
+     print()
+     print('#########################################################################')
+     print("OS SUBDIRETÓRIOS DATA_GAIN E DATA_OFFSET TERÃO SEU CONTEÚDO DELETADO,")
+     print("CASO DESEJE PRESERVA-LOS EFETUE UMA CÓPIA ANTES DE PROSSEGUIR!")
+     print('#########################################################################')
+     input('PRESSIONE ENTER PARA CONTINUAR...')
+     print()
+
+
      for x in a:
-          if '.csv' in x or '.txt' in x:
-               b = diretory + '\\' + x
-               os.remove(b)
+          y = diretory1 + '\\' + x
+          os.remove(y)
      for x in b:
-          if '.csv' in x or '.txt' in x:
-               b = diretory + '\\' + x
-               os.remove(b)
+          y = diretory2 + '\\' + x
+          os.remove(y)
 
      for x in filesDATA1:
           shutil.move(x,diretory1)
