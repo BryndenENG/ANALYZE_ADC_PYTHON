@@ -1,8 +1,8 @@
 ###############################################################################
 #IMPORT
-import pandas as pd
+from Library import moveData as md
 
-import Library.moveData       as md
+import pandas as pd
 
 ###############################################################################
 def convertCSV(lista1:list, typeVal1:str, lista2:list, typeVal2:str, addressDir: str):

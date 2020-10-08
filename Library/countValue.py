@@ -1,6 +1,6 @@
 ###############################################################################
 #IMPORT
-import pandas as pl
+import pandas as pd
 ###############################################################################
 
 ###############################################################################
@@ -46,6 +46,6 @@ def count(df:list, dado:str):
 ###############################################################################
 def auxCount0(x, string:str):
      
-     filtro = (x.filter(like=string)).value_counts().reset_index()
+     filtro = (x.filter(like=string)).value_counts(ascending = False).reset_index()
      filtro.columns = [string, 'FREQUENCIA']
      return filtro

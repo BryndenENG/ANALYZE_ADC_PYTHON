@@ -1,7 +1,7 @@
 ###############################################################################
 #IMPORT
 import os
-import pandas as pl
+import pandas as pd
 ###############################################################################
 def importDATA(dataAddress:str):
      'Function that enters the execution directory data, the csv files are read' 
@@ -33,9 +33,9 @@ def importDATA(dataAddress:str):
      dataGain = []
      dataOffset = []
      for x in listGain:
-          dataGain.append(pl.read_csv(x))
+          dataGain.append(pd.read_csv(x))
      for y in listOffset:
-          dataOffset.append(pl.read_csv(y))
+          dataOffset.append(pd.read_csv(y))
      
      # Excluding columns that do not have relevant information
      dataGain = removeColumn(dataGain, 'Time [s]')
@@ -102,3 +102,32 @@ def removeColumn(dataFrame:list, column:str)->list:
           aux += 1
      return dataFrame
 ###############################################################################
+def csvToDataFrame(address:str, titledata:str):
+     'Transforms csv into dataFrame Pandas'
+     aux0 = 0
+     auxBool = False
+     returnList = []
+     
+     csvPandas = pd.read_csv(address)
+
+     csvlist = csvPandas.values.tolist()
+
+     aux0 = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
+     typeData = []
+     for x in aux0:
+          for y in aux0:
+               typeData.append('0x'+x+y)
+     
+     for x in typeData:
+          for y in csvlist:
+               if x in y:
+                    auxBool = True
+                    del(y[0])
+                    aux0 = y
+          if auxBool == True:
+               returnList.append(aux0)
+               auxBool = False
+          else:
+               returnList.append((x,0))
+     
+     return pd.DataFrame(returnList, columns=[titledata, 'Frequency'])
