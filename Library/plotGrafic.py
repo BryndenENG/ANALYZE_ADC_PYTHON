@@ -9,7 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ###############################################################################
-def plotGF(maindir:str):
+def plotGF(maindir:str)->list :
      'Graphic plot of the respective equipment'
      'maindir: script execution directory'
      'equipment: equipment that will print the data of your registrars'
@@ -38,24 +38,24 @@ def plotGF(maindir:str):
      y1 = slicing(dataFrameGCC)
      y2 = slicing(dataFrameOCC)
      labels = generateLabels()
-     
+
      equipament = 1
      for x in range(len(y1)):
-          fig, axs = plt.subplots(6,1, figsize=(300,20))
+          fig, axs = plt.subplots(2,3, figsize=(300,20))
 
-          axs[0].bar(labels,y1[x][0])
-          axs[0].set_title('GCC0')
-          axs[1].bar(labels,y1[x][1])
-          axs[1].set_title('GCC1')
-          axs[2].bar(labels,y1[x][2])
-          axs[2].set_title('GCC2')
+          axs[0,0].bar(labels,y1[x][0])
+          axs[0,0].set_title('GCC0')
+          axs[0,1].bar(labels,y1[x][1])
+          axs[0,1].set_title('GCC1')
+          axs[0,2].bar(labels,y1[x][2])
+          axs[0,2].set_title('GCC2')
 
-          axs[3].bar(labels,y2[x][0])
-          axs[3].set_title('OCC0')
-          axs[4].bar(labels,y2[x][1])
-          axs[4].set_title('OCC1')
-          axs[5].bar(labels,y2[x][2])
-          axs[5].set_title('OCC2')
+          axs[1,0].bar(labels,y2[x][0])
+          axs[1,0].set_title('OCC0')
+          axs[1,1].bar(labels,y2[x][1])
+          axs[1,1].set_title('OCC1')
+          axs[1,2].bar(labels,y2[x][2])
+          axs[1,2].set_title('OCC2')
          
           name = 'Equipament' + str(equipament)
           fig.suptitle(name)
@@ -64,10 +64,35 @@ def plotGF(maindir:str):
           fig.savefig(name)
           equipament += 1
      
-     
+     resultado = sumDF(y1,y2)
 
-    
+     fig, axs = plt.subplots(2,3, figsize=(300,20))
+     axs[0,0].bar(labels,resultado[0]['SUM'])
+     axs[0,0].set_title('GCC0')
+     axs[0,1].bar(labels,resultado[1]['SUM'])
+     axs[0,0].set_title('GCC1')
+     axs[0,2].bar(labels,resultado[2]['SUM'])
+     axs[0,0].set_title('GCC2')
+     axs[1,0].bar(labels,resultado[3]['SUM'])
+     axs[0,0].set_title('OCC0')
+     axs[1,1].bar(labels,resultado[4]['SUM'])
+     axs[0,0].set_title('OCC1')
+     axs[1,2].bar(labels,resultado[5]['SUM'])
+     axs[0,0].set_title('OCC2')
+     name = 'SOMATÓRIO'
+     fig.suptitle(name)
+     plt.show()
+     name += '.png'
+     fig.savefig(name)
 
+     resultado[0].to_csv("GCC0_TOTAL.csv")
+     resultado[1].to_csv("GCC1_TOTAL.csv")
+     resultado[2].to_csv("GCC2_TOTAL.csv")
+     resultado[3].to_csv("OCC0_TOTAL.csv")
+     resultado[4].to_csv("OCC1_TOTAL.csv")
+     resultado[5].to_csv("OCC2_TOTAL.csv")
+
+     return resultado
 
 ###############################################################################
 def csvToSeriesPandas(address:list, typedata:str)->list:
@@ -113,4 +138,41 @@ def generateLabels()->list:
           for y in a:
                w.append("0x" + x + y)
      return w
+###############################################################################
+def sumDF(list1:list,list2:list)->list:
 
+     GCC0 = pd.DataFrame()
+     GCC1 = pd.DataFrame()
+     GCC2 = pd.DataFrame()
+     OCC0 = pd.DataFrame()
+     OCC1 = pd.DataFrame()
+     OCC2 = pd.DataFrame()
+
+     for a in range(len(list1)):
+
+          GCC0['GCC0_EQ'+str(a)] = list1[a][0]
+          GCC1['GCC1_EQ'+str(a)] = list1[a][1]
+          GCC2['GCC2_EQ'+str(a)] = list1[a][2]
+
+          OCC0['OCC0_EQ'+str(a)] = list2[a][0]
+          OCC1['OCC1_EQ'+str(a)] = list2[a][1]
+          OCC2['OCC2_EQ'+str(a)] = list2[a][2]
+          
+
+     GCC0['SUM'] =  GCC0.sum(axis = 1)
+     GCC1['SUM'] =  GCC1.sum(axis = 1)
+     GCC2['SUM'] =  GCC2.sum(axis = 1)
+     OCC0['SUM'] =  OCC0.sum(axis = 1)
+     OCC1['SUM'] =  OCC1.sum(axis = 1)
+     OCC2['SUM'] =  OCC2.sum(axis = 1)
+
+     result = []
+     result.append(GCC0)
+     result.append(GCC1)
+     result.append(GCC2)
+     result.append(OCC0)
+     result.append(OCC1)
+     result.append(OCC2)
+
+     return result
+###############################################################################

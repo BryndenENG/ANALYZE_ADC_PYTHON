@@ -51,9 +51,9 @@ tscv.convertCSV(countGain, 'gain', countOffset, 'offset', addressDir)
 # Criar uma função com o propósito de plotar o gráfico para cada equipamento
 #essa função plotará os 6 gráficos GCC0, GCC1, GCC2, OCC0, OCC1 E OCC2.
 #    Deverá ser criado uma função para coletar o dado em csv
-pg.plotGF(addressDir)
-
-
-# Criar uma função que somará todos os dados de todos os registradores dos 
-#equipamentos e em seguida gerar um gráfico geral respectivo a todos 
-#equipamentos 
+#    somará todos os dados de todos os registradores dos 
+#    Equipamentos e em seguida gerar um gráfico geral respectivo a todos 
+#    equipamentos
+#    Retorna uma lista com o somatorio de todos registradores de todos 
+#    equipamentos
+results = pg.plotGF(addressDir)
